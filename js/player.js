@@ -1,110 +1,55 @@
 function Player(ctx) {
-  this.ctx = ctx;
+  this.ctx = null;
 
-  this.w = this.ctx.canvas.width / 20;
-  this.h = this.w * 1.8;
+  this.w = null;
+  this.h = null;
 
-  this.x = this.ctx.canvas.width / 20;
-  this.y0 = this.ctx.canvas.height * 0.95 - this.h;
-  this.y = this.y0;
+  this.x = null;
+  this.y0 = null;
+  this.y = null;
 
-  this.vx = 0;
-  this.vy = 0;
-  this.g = 1;
+  this.vx = null;
+  this.vy = null;
+  this.g = null;
 
-  this.img = new Image();
-  this.img.src = "img/mario.png";
-  this.img.frames = 3;
-  this.img.frameIndex = 0;
-  this.img.animateEvery = 10;
+  this.img = null;
+  //this.img.src = "";
+  // this.img.frames = null;
+  // this.img.frameIndex = null;
+  // this.img.animateEvery = null;
 
-  this.drawCount = 0;
+  this.drawCount = null;
 
-  this.bend = false;
+  this.bend = null;
 
   this.bullets = [];
 }
 
 Player.prototype.draw = function() {
-  this.drawCount++;
-
-  this.ctx.drawImage(
-    this.img,
-    this.img.frameIndex * Math.floor(this.img.width / this.img.frames),
-    0,
-    this.img.width / this.img.frames,
-    this.img.height,
-    this.x,
-    this.y,
-    this.w,
-    this.h
-  );
-
   this.bullets.forEach(function(b) {
     b.draw();
   });
 };
 
 Player.prototype.move = function() {
-  this.animate();
-
-  this.vy += this.g;
-  this.y += this.vy;
-
-  if (this.y0 && this.y >= this.y0) {
-    this.y = this.y0;
-    this.vy = 0;
-  }
-
-  this.x += this.vx;
-
-  this.bullets.filter(function(b) {
-    b.move();
-
-    return b.x < this.ctx.canvas.width;
-  }.bind(this));
 };
 
 Player.prototype.animate = function() {
   if (this.isJumping()) return;
 
-  if (this.drawCount % this.img.animateEvery === 0) {
-    this.img.frameIndex++;
-
-    if (this.img.frameIndex >= this.img.frames) {
-      this.img.frameIndex = 0;
-    }
-  }
+  // ...
 };
 
 Player.prototype.jump = function() {
-  if (!this.isJumping()) {
-    this.vy -= 20;
-  }
 };
 
 Player.prototype.shoot = function() {
-  this.bullets.push(
-    new Bullet(this.ctx, (this.x + this.w), (this.y + (this.h / 2)))
-  );
 };
 
 Player.prototype.startBend = function() {
-  if (!this.bend) {
-    this.bend = true;
-    this.h /= 2;
-
-    this.y += this.h;
-    this.y0 += this.h;
-  }
 };
 
 Player.prototype.stopBend = function() {
-  this.bend = false;
-
-  this.y -= this.h;
-  this.y0 -= this.h;  
-  this.h *= 2;
 };
 
 Player.prototype.isJumping = function() {

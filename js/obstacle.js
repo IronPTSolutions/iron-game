@@ -1,28 +1,20 @@
 function Obstacle(ctx) {
-  this.ctx = ctx;
+  this.ctx = null;
 
-  this.w = this.ctx.canvas.width / 20;
-  this.h = this.w;
+  this.w = null;
+  this.h = null;
 
-  this.x = this.ctx.canvas.width;
-  this.y = this.ctx.canvas.height * 0.95 - this.h;
+  this.x = null;
+  this.y = null;
 
-  this.img = new Image();
-  this.img.src = "img/obstacle_" + Math.round(Math.random()) + ".png";
+  this.img = null;
+  this.img.src = null;
 
-  this.vx = -10;
+  this.vx = null;
 }
 
 Obstacle.prototype.draw = function() {
-  this.ctx.drawImage(
-    this.img,
-    this.x,
-    this.y,
-    this.w,
-    this.h
-  );
 };
 
 Obstacle.prototype.move = function() {
-  this.x += this.vx;
 };
